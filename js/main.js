@@ -5,7 +5,7 @@ const menu = [
   { name: "Veggie", price: 9 },
 ];
 
-const cashInRegister = 100;
+let cashInRegister = 100;
 const orderQueue = [];
 
 /**
@@ -26,4 +26,27 @@ const meatLovers = {
   price: 12,
 };
 
-addNewPizza(meatLovers);
+//addNewPizza(meatLovers);
+
+/**
+ *  Write another utility function, placeOrder, that takes a pizza name parameter and :
+ * 1. finds that pizza object in the menu,
+ * 2. adds the income to the cashInRegister,
+ * 3. pushes a new "order object" to the orderQueue
+ *      (e.g., { pizza: selectedPizzaObjectFromStep1, status: "ordered"})
+ * 4. returns the new order object (just in case we need it later)
+ */
+
+function placeOrder(pizzaName) {
+  const foundPizza = menu.find((pizzaObj) => pizzaObj.name === pizzaName);
+  console.log(`Pizza Found: `, foundPizza, ` Price: `, foundPizza.price);
+  console.log(`Cash in register before: `, cashInRegister);
+  cashInRegister += foundPizza.price;
+  console.log(`Cash in register after: `, cashInRegister);
+  const newOrder = { pizza: foundPizza, status: "ordered" };
+  orderQueue.push(newOrder);
+  console.log(`Current queue: `, orderQueue);
+  return orderQueue;
+}
+
+placeOrder("Pepperoni");
