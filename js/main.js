@@ -5,6 +5,7 @@ const menu = [
   { name: "Veggie", price: 9 },
 ];
 
+//Getting Type errors here because we are trying to modify constant variables.
 let cashInRegister = 100;
 const orderQueue = [];
 let orderId = 1;
@@ -22,10 +23,10 @@ function addNewPizza(pizza) {
   // );
 }
 
-const meatLovers = {
-  name: "Meat Lovers",
-  price: 12,
-};
+// const meatLovers = {
+//   name: "Meat Lovers",
+//   price: 12,
+// };
 
 //addNewPizza(meatLovers);
 
@@ -44,15 +45,11 @@ function placeOrder(pizzaName) {
   //console.log(`Cash in register before: `, cashInRegister);
   cashInRegister += foundPizza.price;
   //console.log(`Cash in register after: `, cashInRegister);
-  const newOrder = { orderId: orderId, pizza: foundPizza, status: "ordered" };
+  const newOrder = { id: orderId++, pizza: foundPizza, status: "ordered" };
   orderQueue.push(newOrder);
   //console.log(`Current queue: `, orderQueue);
-  orderId++;
   return orderQueue;
 }
-
-placeOrder("Pepperoni");
-placeOrder("Veggie");
 
 /**
  *   Challenge : write another utility funciton, completeOrder, that takesa an orderId as a parameter
@@ -65,14 +62,25 @@ placeOrder("Veggie");
  */
 
 function completeOrder(orderId) {
-  const completeOrder = orderQueue.find(
-    (orderObj) => orderObj.orderId === orderId,
-  );
-  console.log(`Completed order: `, completeOrder);
-  completeOrder.status = "completed";
-  console.log(completeOrder);
+  const foundOrder = orderQueue.find((orderObj) => orderObj.id === orderId);
+  console.log(`Completed order: `, foundOrder);
+  foundOrder.status = "completed";
+  console.log(foundOrder);
   console.log(`Current Queue: `, orderQueue);
-  return completeOrder;
+  return foundOrder;
 }
 
+addNewPizza({ name: "Meat Lover's", price: 12 });
+addNewPizza({ name: "Zia", price: 10 });
+
+placeOrder("Pepperoni");
+placeOrder("Veggie");
+placeOrder("Zia");
+
+completeOrder(1);
+console.log("Menu: ", menu);
+console.log("Cash in Register: ", cashInRegister);
+console.log("Order Queue: ", JSON.stringify(orderQueue));
+
 completeOrder(2);
+console.log("Order Queue: ", JSON.stringify(orderQueue));
