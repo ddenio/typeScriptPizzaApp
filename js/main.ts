@@ -1,3 +1,13 @@
+/**
+ *  Challenge: Creat a pizza object type. It should include a 'name'
+ * and a 'price' property.
+ */
+
+type Pizza = {
+  name: string;
+  price: number;
+};
+
 const menu = [
   { name: "Margherita", price: 8 },
   { name: "Pepperoni", price: 10 },
@@ -15,8 +25,14 @@ let orderId = 1;
  * and adds it to the menu.
  */
 
-function addNewPizza(pizza) {
-  menu.push(pizza);
+/**
+ *  Challenge: Teach TS that the pizzaObj is supposed to be a Pizza type.
+ * Then like before, look through the code to see if there are any new
+ * TS warnings to deal with, and fix those issues
+ */
+
+function addNewPizza(pizzaObj: Pizza) {
+  menu.push(pizzaObj);
   // console.log(
   //   `New Pizza added! Pizza: ${pizza.name}, Price: ${pizza.price}. Current menu:`,
   //   menu,
@@ -32,7 +48,7 @@ function addNewPizza(pizza) {
  * 4. returns the new order object (just in case we need it later)
  */
 
-function placeOrder(pizzaName) {
+function placeOrder(pizzaName: string) {
   const foundPizza = menu.find((pizzaObj) => pizzaObj.name === pizzaName);
   if (!foundPizza) {
     console.error(`${pizzaName} does not exist in the menu`);
@@ -58,7 +74,7 @@ function placeOrder(pizzaName) {
  *   simulate real IDs being managed for us by a database.
  */
 
-function completeOrder(orderId) {
+function completeOrder(orderId: number) {
   const foundOrder = orderQueue.find((orderObj) => orderObj.id === orderId);
   console.log(`Completed order: `, foundOrder);
   foundOrder.status = "completed";
