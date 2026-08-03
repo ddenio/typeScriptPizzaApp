@@ -8,6 +8,17 @@ type Pizza = {
   price: number;
 };
 
+/**
+ *  Challenge: Add an Order Type. It should have 'id', 'pizza', and 'status' properties.
+ * look through the code if you need a reminder as to what data types those should be.
+ */
+
+type Order = {
+  id: number;
+  pizza: Pizza;
+  status: string;
+};
+
 const menu = [
   { name: "Margherita", price: 8 },
   { name: "Pepperoni", price: 10 },
@@ -16,8 +27,9 @@ const menu = [
 ];
 
 //Getting Type errors here because we are trying to modify constant variables.
+//Challenge: Type orderQueue correctly
 let cashInRegister = 100;
-const orderQueue = [];
+const orderQueue: Order[] = [];
 let orderId = 1;
 
 /**
@@ -74,8 +86,18 @@ function placeOrder(pizzaName: string) {
  *   simulate real IDs being managed for us by a database.
  */
 
+/**
+ *  Challenge: Fix the warning below (foundOrder.status) by handlign the "sad Path" scenario!
+ */
+
 function completeOrder(orderId: number) {
   const foundOrder = orderQueue.find((orderObj) => orderObj.id === orderId);
+  if (!foundOrder) {
+    console.error(
+      `Order #${orderId} does not exist in the Queue, try another order number.`,
+    );
+    return;
+  }
   console.log(`Completed order: `, foundOrder);
   foundOrder.status = "completed";
   console.log(foundOrder);
@@ -91,6 +113,7 @@ placeOrder("Veggie");
 placeOrder("Zia");
 
 completeOrder(1);
+completeOrder(17);
 console.log("Menu: ", menu);
 console.log("Cash in Register: ", cashInRegister);
 console.log("Order Queue: ", JSON.stringify(orderQueue));
