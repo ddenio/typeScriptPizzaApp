@@ -4,6 +4,7 @@
  */
 
 type Pizza = {
+  id: number;
   name: string;
   price: number;
 };
@@ -13,17 +14,22 @@ type Pizza = {
  * look through the code if you need a reminder as to what data types those should be.
  */
 
+/**
+ *  Challenge: using literal types and unions, update the Order status so that
+ * it can only ever be "ordered" or "completed"
+ */
+
 type Order = {
   id: number;
   pizza: Pizza;
-  status: string;
+  status: "ordered" | "completed";
 };
 
-const menu = [
-  { name: "Margherita", price: 8 },
-  { name: "Pepperoni", price: 10 },
-  { name: "Hawaiian", price: 10 },
-  { name: "Veggie", price: 9 },
+const menu: Pizza[] = [
+  { id: 1, name: "Margherita", price: 8 },
+  { id: 2, name: "Pepperoni", price: 10 },
+  { id: 3, name: "Hawaiian", price: 10 },
+  { id: 4, name: "Veggie", price: 9 },
 ];
 
 //Getting Type errors here because we are trying to modify constant variables.
@@ -70,7 +76,11 @@ function placeOrder(pizzaName: string) {
   //console.log(`Cash in register before: `, cashInRegister);
   cashInRegister += foundPizza.price;
   //console.log(`Cash in register after: `, cashInRegister);
-  const newOrder = { id: orderId++, pizza: foundPizza, status: "ordered" };
+  const newOrder: Order = {
+    id: orderId++,
+    pizza: foundPizza,
+    status: "ordered",
+  };
   orderQueue.push(newOrder);
   //console.log(`Current queue: `, orderQueue);
   return orderQueue;
@@ -98,25 +108,60 @@ function completeOrder(orderId: number) {
     );
     return;
   }
-  console.log(`Completed order: `, foundOrder);
+  //console.log(`Completed order: `, foundOrder);
   foundOrder.status = "completed";
-  console.log(foundOrder);
-  console.log(`Current Queue: `, orderQueue);
+  //console.log(foundOrder);
+  //console.log(`Current Queue: `, orderQueue);
   return foundOrder;
 }
 
-addNewPizza({ name: "Meat Lover's", price: 12 });
-addNewPizza({ name: "Zia", price: 10 });
+/**
+ *   Challenge : create a new utility funciton called getPizzaDetail. It will take
+ * a paramater called 'identifier', but theres a twist: we want this identifier
+ * to be allowed to either be the string anme of the pizza ("Pepperoni"), OR
+ * to be the nubmer ID of hte pizza (e.g. 2).
+ * 
+ * Dont worry about the code inside the function yet, just create the function
+ * signature, making susre to teach TS that the 'identifier' parameter is allowed
+ * to either be a string or a number
+ 
+ */
 
-placeOrder("Pepperoni");
-placeOrder("Veggie");
-placeOrder("Zia");
+//union here , can take a string OR a number (Type Narrowing)
 
-completeOrder(1);
-completeOrder(17);
-console.log("Menu: ", menu);
-console.log("Cash in Register: ", cashInRegister);
-console.log("Order Queue: ", JSON.stringify(orderQueue));
+function getPizzaDetail(identifier: string | number) {
+  /**
+   *  Challenge: write the code to check if the parameter is a string
+   * or a number, and use the menu.find() method accordingly
+   */
+  if (typeof identifier === "string") {
+    const pizzaDetail = menu.find((pizzaObj) => pizzaObj.name === identifier);
+    console.log(`Found Pizza by name: `, pizzaDetail);
+    return pizzaDetail;
+  } else if (typeof identifier === "number") {
+    const pizzaDetail = menu.find((pizzaObj) => pizzaObj.id === identifier);
+    console.log(`Found Pizza by id: `, pizzaDetail);
+    return pizzaDetail;
+  }
+  console.log(`Please enter a valid Pizza name or id.`);
+  return `Enter a valid Pizza name or id.`;
+}
 
-completeOrder(2);
-console.log("Order Queue: ", JSON.stringify(orderQueue));
+// addNewPizza({ id: 5, name: "Meat Lover's", price: 12 });
+// addNewPizza({ id: 6, name: "Zia", price: 10 });
+
+// placeOrder("Pepperoni");
+// placeOrder("Veggie");
+// placeOrder("Zia");
+
+// completeOrder(1);
+// completeOrder(17);
+// //console.log("Menu: ", menu);
+// //console.log("Cash in Register: ", cashInRegister);
+// console.log("Order Queue: ", JSON.stringify(orderQueue));
+
+// completeOrder(2);
+// console.log("Order Queue: ", JSON.stringify(orderQueue));
+
+getPizzaDetail("Pepperoni");
+getPizzaDetail(3);
