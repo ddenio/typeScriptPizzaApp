@@ -129,22 +129,26 @@ function completeOrder(orderId: number) {
 
 //union here , can take a string OR a number (Type Narrowing)
 
-function getPizzaDetail(identifier: string | number) {
+export function getPizzaDetail(identifier: string | number) {
   /**
    *  Challenge: write the code to check if the parameter is a string
    * or a number, and use the menu.find() method accordingly
    */
   if (typeof identifier === "string") {
-    const pizzaDetail = menu.find((pizzaObj) => pizzaObj.name === identifier);
+    const pizzaDetail = menu.find(
+      (pizzaObj) => pizzaObj.name.toLowerCase() === identifier.toLowerCase(),
+    );
     console.log(`Found Pizza by name: `, pizzaDetail);
     return pizzaDetail;
   } else if (typeof identifier === "number") {
     const pizzaDetail = menu.find((pizzaObj) => pizzaObj.id === identifier);
     console.log(`Found Pizza by id: `, pizzaDetail);
     return pizzaDetail;
+  } else {
+    throw new TypeError(
+      "Parameter 'identifier must either be a string or a number' ",
+    );
   }
-  console.log(`Please enter a valid Pizza name or id.`);
-  return `Enter a valid Pizza name or id.`;
 }
 
 // addNewPizza({ id: 5, name: "Meat Lover's", price: 12 });

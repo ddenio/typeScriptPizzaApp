@@ -81,3 +81,7 @@
 // completeOrder(2);
 // console.log("Order Queue: ", JSON.stringify(orderQueue));
 // //# sourceMappingURL=main.js.map
+
+import { getPizzaDetail } from "./main.ts";
+
+console.log(getPizzaDetail(false));
