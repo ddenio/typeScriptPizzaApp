@@ -49,7 +49,7 @@ let orderId = 1;
  * TS warnings to deal with, and fix those issues
  */
 
-function addNewPizza(pizzaObj: Pizza) {
+function addNewPizza(pizzaObj: Pizza): void {
   menu.push(pizzaObj);
   // console.log(
   //   `New Pizza added! Pizza: ${pizza.name}, Price: ${pizza.price}. Current menu:`,
@@ -66,7 +66,7 @@ function addNewPizza(pizzaObj: Pizza) {
  * 4. returns the new order object (just in case we need it later)
  */
 
-function placeOrder(pizzaName: string) {
+function placeOrder(pizzaName: string): Order[] | undefined {
   const foundPizza = menu.find((pizzaObj) => pizzaObj.name === pizzaName);
   if (!foundPizza) {
     console.error(`${pizzaName} does not exist in the menu`);
@@ -100,7 +100,7 @@ function placeOrder(pizzaName: string) {
  *  Challenge: Fix the warning below (foundOrder.status) by handlign the "sad Path" scenario!
  */
 
-function completeOrder(orderId: number) {
+function completeOrder(orderId: number): Order | undefined {
   const foundOrder = orderQueue.find((orderObj) => orderObj.id === orderId);
   if (!foundOrder) {
     console.error(
