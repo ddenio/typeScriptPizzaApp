@@ -3,6 +3,13 @@
  * and a 'price' property.
  */
 
+//Getting Type errors here because we are trying to modify constant variables.
+//Challenge: Type orderQueue correctly
+let cashInRegister = 100;
+const orderQueue: Order[] = [];
+let orderId = 1;
+let nextPizzaId = 1;
+
 type Pizza = {
   id: number;
   name: string;
@@ -26,17 +33,11 @@ type Order = {
 };
 
 const menu: Pizza[] = [
-  { id: 1, name: "Margherita", price: 8 },
-  { id: 2, name: "Pepperoni", price: 10 },
-  { id: 3, name: "Hawaiian", price: 10 },
-  { id: 4, name: "Veggie", price: 9 },
+  { id: nextPizzaId++, name: "Margherita", price: 8 },
+  { id: nextPizzaId++, name: "Pepperoni", price: 10 },
+  { id: nextPizzaId++, name: "Hawaiian", price: 10 },
+  { id: nextPizzaId++, name: "Veggie", price: 9 },
 ];
-
-//Getting Type errors here because we are trying to modify constant variables.
-//Challenge: Type orderQueue correctly
-let cashInRegister = 100;
-const orderQueue: Order[] = [];
-let orderId = 1;
 
 /**
  *  Challenge: Add a utility function "addNewPizza" that takes a pizza object
@@ -153,6 +154,8 @@ export function getPizzaDetail(identifier: string | number): Pizza | undefined {
 
 // addNewPizza({ id: 5, name: "Meat Lover's", price: 12 });
 // addNewPizza({ id: 6, name: "Zia", price: 10 });
+addNewPizza({ id: nextPizzaId++, name: "Meat Lover's", price: 12 });
+addNewPizza({ id: nextPizzaId++, name: "Zia", price: 10 });
 
 // placeOrder("Pepperoni");
 // placeOrder("Veggie");
@@ -167,5 +170,6 @@ export function getPizzaDetail(identifier: string | number): Pizza | undefined {
 // completeOrder(2);
 // console.log("Order Queue: ", JSON.stringify(orderQueue));
 
+console.log(`Menu: `, menu);
 getPizzaDetail("Pepperoni");
 getPizzaDetail(3);
