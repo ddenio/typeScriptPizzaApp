@@ -50,12 +50,17 @@ const menu: Pizza[] = [
  * TS warnings to deal with, and fix those issues
  */
 
-function addNewPizza(pizzaObj: Pizza): void {
-  menu.push(pizzaObj);
+function addNewPizza(pizzaObj: Omit<Pizza, "id">): Pizza {
+  const newPizza: Pizza = {
+    id: nextPizzaId++,
+    ...pizzaObj,
+  };
+  menu.push(newPizza);
   // console.log(
   //   `New Pizza added! Pizza: ${pizza.name}, Price: ${pizza.price}. Current menu:`,
   //   menu,
   // );
+  return newPizza;
 }
 
 /**
@@ -154,8 +159,8 @@ export function getPizzaDetail(identifier: string | number): Pizza | undefined {
 
 // addNewPizza({ id: 5, name: "Meat Lover's", price: 12 });
 // addNewPizza({ id: 6, name: "Zia", price: 10 });
-addNewPizza({ id: nextPizzaId++, name: "Meat Lover's", price: 12 });
-addNewPizza({ id: nextPizzaId++, name: "Zia", price: 10 });
+addNewPizza({ name: "Meat Lover's", price: 12 });
+addNewPizza({ name: "Zia", price: 10 });
 
 // placeOrder("Pepperoni");
 // placeOrder("Veggie");
