@@ -106,6 +106,25 @@ function placeOrder(pizzaName: string): Order[] | undefined {
  *  Challenge: Fix the warning below (foundOrder.status) by handlign the "sad Path" scenario!
  */
 
+/**
+ * Challenge: add types to our generic 'addToArray' function. It should work
+ * for adding new pizzas to the 'menu' and adding new orders to the 'orderQueue'
+ */
+
+function addToArray<T>(array: T[], item: T): T[] {
+  array.push(item);
+  console.log(array);
+  return array;
+}
+
+//example usage
+addToArray(menu, { id: nextPizzaId++, name: "chicken Bacon Ranch", price: 12 });
+addToArray(orderQueue, {
+  id: orderId++,
+  pizza: menu[2],
+  status: "completed",
+});
+
 function completeOrder(orderId: number): Order | undefined {
   const foundOrder = orderQueue.find((orderObj) => orderObj.id === orderId);
   if (!foundOrder) {
@@ -159,8 +178,8 @@ export function getPizzaDetail(identifier: string | number): Pizza | undefined {
 
 // addNewPizza({ id: 5, name: "Meat Lover's", price: 12 });
 // addNewPizza({ id: 6, name: "Zia", price: 10 });
-addNewPizza({ name: "Meat Lover's", price: 12 });
-addNewPizza({ name: "Zia", price: 10 });
+// addNewPizza({ name: "Meat Lover's", price: 12 });
+// addNewPizza({ name: "Zia", price: 10 });
 
 // placeOrder("Pepperoni");
 // placeOrder("Veggie");
@@ -175,6 +194,6 @@ addNewPizza({ name: "Zia", price: 10 });
 // completeOrder(2);
 // console.log("Order Queue: ", JSON.stringify(orderQueue));
 
-console.log(`Menu: `, menu);
-getPizzaDetail("Pepperoni");
-getPizzaDetail(3);
+// console.log(`Menu: `, menu);
+// getPizzaDetail("Pepperoni");
+// getPizzaDetail(3);
