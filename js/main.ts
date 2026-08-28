@@ -121,11 +121,15 @@ function addToArray<T>(array: T[], item: T): T[] {
 //bug here though, if we hover over addToArray with orderQueue parameter the TS generic is infering that our "status" type is a string, but it should
 // either be only "ordered" | "completed", so we can add in whatever status value we want, which we DONT want
 // So, challenge: what should be passed in as the generic type on line 125?
-addToArray(menu, { id: nextPizzaId++, name: "chicken Bacon Ranch", price: 12 });
+addToArray<Pizza>(menu, {
+  id: nextPizzaId++,
+  name: "chicken Bacon Ranch",
+  price: 12,
+});
 addToArray<Order>(orderQueue, {
   id: orderId++,
   pizza: menu[2],
-  status: "ordered",
+  status: "completed",
 });
 
 function completeOrder(orderId: number): Order | undefined {
